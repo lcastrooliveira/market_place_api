@@ -17,6 +17,9 @@ gem 'jquery-rails'
 # Devise gem
 gem 'devise'
 
+# puma
+gem 'puma'
+
 # Api gems
 gem 'active_model_serializers'
 

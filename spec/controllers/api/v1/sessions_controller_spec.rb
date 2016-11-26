@@ -16,7 +16,7 @@ describe Api::V1::SessionsController do
         expect(json_response(:auth_token)).to eql @user.auth_token
       end
 
-      it { should respond with 200 }
+      it { should respond_with 200 }
     end
 
     context 'when the credentials are incorrect' do
@@ -29,7 +29,16 @@ describe Api::V1::SessionsController do
         expect(json_response[:errors]).to eql 'invalid email or password'
       end
 
-      it { should respond with 200 }
+      it { should respond_with 200 }
     end
+  end
+
+  describe 'DESTROY #destroy' do
+    before(:each) do
+      @user = FactoryGirl.create :user
+      sign_in @user, store: false
+      delete :destroy, id: @user.auth_token
+    end
+    it { should respond_with 204 }
   end
 end

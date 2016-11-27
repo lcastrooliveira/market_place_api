@@ -60,6 +60,7 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Request::JsonHelpers, type: :controller
+  config.include Request::HeaderHelpers, type: :controller
   config.include Request::RequestHelpers, type: :controller
   config.before(:each, type: :controller) do
     include_default_accept_headers

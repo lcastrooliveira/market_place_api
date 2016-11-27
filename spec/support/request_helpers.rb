@@ -1,4 +1,9 @@
 module Request
+  module HeaderHelpers
+    def api_authorization_header(token)
+      request.headers['Authorization'] = @user.auth_token
+    end
+  end
   module JsonHelpers
     def json_response
       @json_response ||= JSON.parse(response.body, symbolize_names: true)

@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   before_create :generate_authentication_token!
-
+  has_many :products, dependent: :destroy
   validates :auth_token, uniqueness: true
 
   def generate_authentication_token!

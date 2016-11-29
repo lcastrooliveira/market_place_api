@@ -26,7 +26,7 @@ describe Api::V1::SessionsController do
       end
 
       it "returns a json with an error" do
-        expect(json_response[:errors]).to eql 'invalid email or password'
+        expect(json_response[:errors]).to eql 'Invalid email or password'
       end
 
       it { should respond_with 200 }

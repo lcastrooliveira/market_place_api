@@ -8,7 +8,7 @@ describe Api::V1::UsersController do
       get :show, id: @user.id
     end
     it 'returns the information about a reporter on a hash' do
-      user_response = json_response
+      user_response = json_response[:user]
       expect(user_response[:email]).to eql @user.email
     end
     it { should respond_with 200 }
@@ -21,7 +21,7 @@ describe Api::V1::UsersController do
         post :create, { user: @user_attributes }
       end
       it 'renders the json representation fo the user record just created' do
-        user_response = json_response
+        user_response = json_response[:user]
         expect(user_response[:email]).to eql @user_attributes[:email]
       end
       it { should respond_with 201 }
@@ -45,23 +45,24 @@ describe Api::V1::UsersController do
   end
 
   describe 'PUT/PATCH #update' do
+    before(:each) do
+      @user = FactoryGirl.create :user
+      api_authorization_header @user.auth_token
+    end
+
     context 'when is successfully updated' do
       before(:each) do
-        @user = FactoryGirl.create :user
-        api_authorization_header @user.auth_token
         patch :update, { id: @user.id, user: { email: 'newemail@example.com' } }
       end
       it 'renders the json representation for the updated user' do
-        user_response = json_response
+        user_response = json_response[:user]
         expect(user_response[:email]).to eql 'newemail@example.com'
       end
       it { should respond_with 201 }
     end
 
-    context 'when is not created' do
+    context 'when is not updated' do
       before(:each) do
-        @user = FactoryGirl.create :user
-        api_authorization_header @user.auth_token
         patch :update, { id: @user.id, user: { email: 'bademail.com' } }
       end
       it 'renders errors json' do

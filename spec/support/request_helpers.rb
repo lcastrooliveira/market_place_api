@@ -1,7 +1,7 @@
 module Request
   module HeaderHelpers
     def api_authorization_header(token)
-      request.headers['Authorization'] = @user.auth_token
+      request.headers['Authorization'] = token
     end
   end
   module JsonHelpers

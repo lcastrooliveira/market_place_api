@@ -54,4 +54,5 @@ end
 group :test do
   gem "rspec-rails", "~> 2.14"
   gem "shoulda-matchers", '~> 2.6.1'
+  gem 'email_spec', '~> 1.6.0'
 end
